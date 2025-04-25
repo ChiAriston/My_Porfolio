@@ -1,21 +1,24 @@
-// This is where you can add interactive functionality
-document.addEventListener('DOMContentLoaded', function() {
-  // Example: Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
-      });
+function enableSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                console.error('Target element not found:', this.getAttribute('href'));
+            }
+        });
     });
-  });
+}
 
-  // Example: Dynamic year in footer
-  const yearSpan = document.createElement('span');
-  yearSpan.textContent = new Date().getFullYear();
-  document.querySelector('footer').appendChild(document.createTextNode(' © '));
-  document.querySelector('footer').appendChild(yearSpan);
+function addDynamicFooterYear() {
+    const footer = document.querySelector('footer');
+    footer.innerHTML += ` © ${new Date().getFullYear()}`;
+}
 
-  // You can add more interactive features here
-  console.log('Portfolio loaded successfully!');
+document.addEventListener('DOMContentLoaded', function() {
+    enableSmoothScroll();
+    addDynamicFooterYear();
+    console.log('Portfolio loaded successfully!');
 });
